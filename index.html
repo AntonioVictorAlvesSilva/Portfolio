@@ -1,1273 +1,1158 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antônio Victor Alves Silva - Portfólio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="https://cdn-icons-png.freepik.com/256/12237/12237097.png" sizes="32x32" />
-    <link rel="icon" href="https://cdn-icons-png.freepik.com/256/12237/12237097.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.freepik.com/256/12237/12237097.png" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --primary-color: #2F4F4F;
-        --accent-color: #D4AF37;
-        --text-color: #FFF8DC;
-        --card-bg: rgba(47, 79, 79, 0.9);
-        --hover-accent: #FFD700;
-      }
-
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, var(--primary-color) 0%, #1a3333 100%);
-        color: var(--text-color);
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
-
-      .language-toggle {
-        position: fixed;
-        top: 80px;
-        right: 10px;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        z-index: 1001;
-      }
-
-      .lang-btn {
-        width: 50px;
-        height: 50px;
-        border: none;
-        border-radius: 100%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .lang-btn.active {
-        background: var(--accent-color);
-        color: var(--primary-color);
-        transform: scale(1.1);
-      }
-
-      .lang-btn:not(.active) {
-        background: rgba(255, 255, 255, 0.2);
-        color: var(--text-color);
-      }
-
-      @media (max-width: 768px) {
-        .language-toggle {
-          right: 10px;
-          top: 120px;
-          transform: none;
-        }
-
-        .lang-btn {
-          width: 40px;
-          height: 40px;
-          font-size: 1rem;
-        }
-      }
-
-      .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(47, 79, 79, 0.95);
-        backdrop-filter: blur(10px);
-        z-index: 1000;
-        padding: 1rem 0;
-        border-bottom: 2px solid var(--accent-color);
-      }
-
-      .nav {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 2rem;
-      }
-
-      .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--accent-color);
-      }
-
-      .nav-links {
-        display: flex;
-        list-style: none;
-        gap: 2rem;
-      }
-
-      .nav-links a {
-        color: var(--text-color);
-        text-decoration: none;
-        transition: color 0.3s ease;
-        font-weight: 500;
-      }
-
-      .nav-links a:hover {
-        color: var(--accent-color);
-      }
-
-      .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem;
-        position: relative;
-      }
-
-      .hero-content {
-        max-width: 800px;
-        z-index: 2;
-      }
-
-      .profile-photo {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        margin: 0 auto 2rem;
-        border: 4px solid var(--accent-color);
-        background: var(--card-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 4rem;
-        color: var(--accent-color);
-      }
-
-      .hero h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        color: var(--accent-color);
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
-
-      .hero h2 {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-        font-weight: 300;
-      }
-
-      .hero p {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-        opacity: 0.9;
-      }
-
-      .contact-info {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--text-color);
-      }
-
-      .contact-item i {
-        color: var(--accent-color);
-      }
-
-      .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-      }
-
-      .social-links a {
-        color: var(--accent-color);
-        font-size: 1.5rem;
-        transition: transform 0.3s ease, color 0.3s ease;
-      }
-
-      .social-links a:hover {
-        transform: translateY(-3px);
-        color: var(--hover-accent);
-      }
-
-      .section {
-        padding: 4rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        scroll-margin-top: 80px;
-      }
-
-      .section h2 {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 3rem;
-        color: var(--accent-color);
-        position: relative;
-      }
-
-      .section h2::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background: var(--accent-color);
-      }
-
-      .experience-grid {
-        display: grid;
-        gap: 2rem;
-      }
-
-      .experience-card {
-        background: var(--card-bg);
-        border-radius: 15px;
-        padding: 2rem;
-        border: 1px solid var(--accent-color);
-      }
-
-      .experience-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
-        gap: 1rem;
-      }
-
-      .experience-icon {
-        font-size: 2rem;
-        color: var(--accent-color);
-      }
-
-      .experience-title {
-        flex: 1;
-      }
-
-      .experience-title h3 {
-        color: var(--accent-color);
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .experience-company {
-        color: var(--text-color);
-        opacity: 0.8;
-        font-size: 0.9rem;
-      }
-
-      .experience-date {
-        color: var(--accent-color);
-        font-size: 0.9rem;
-        font-weight: bold;
-      }
-
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-      }
-
-      .skill-category {
-        background: var(--card-bg);
-        border-radius: 15px;
-        padding: 2rem;
-        border: 1px solid var(--accent-color);
-      }
-
-      .skill-category h3 {
-        color: var(--accent-color);
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .skill-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-      }
-
-      .skill-name {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .skill-level {
-        display: flex;
-        gap: 2px;
-      }
-
-      .skill-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(212, 175, 55, 0.3);
-        transition: background 0.3s ease;
-      }
-
-      .skill-dot.active {
-        background: var(--accent-color);
-      }
-
-      .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
-      }
-
-      .project-card {
-        background: var(--card-bg);
-        border-radius: 15px;
-        padding: 2rem;
-        border: 1px solid var(--accent-color);
-      }
-
-      .project-image {
-        width: 100%;
-        height: 200px;
-        background: rgba(212, 175, 55, 0.1);
-        border-radius: 10px;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--accent-color);
-        font-size: 3rem;
-        border: 2px dashed var(--accent-color);
-      }
-
-      .project-title {
-        color: var(--accent-color);
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-      }
-
-      .project-description {
-        margin-bottom: 1.5rem;
-        opacity: 0.9;
-      }
-
-      .project-links {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .project-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: var(--accent-color);
-        color: var(--primary-color);
-        text-decoration: none;
-        border-radius: 25px;
-        font-weight: bold;
-        transition: background 0.3s ease;
-      }
-
-      .project-link:hover {
-        background: var(--hover-accent);
-      }
-
-      .education-timeline {
-        position: relative;
-        padding-left: 2rem;
-      }
-
-      .education-timeline::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: var(--accent-color);
-      }
-
-      .education-item {
-        position: relative;
-        margin-bottom: 2rem;
-        padding-left: 2rem;
-      }
-
-      .education-item::before {
-        content: '';
-        position: absolute;
-        left: -8px;
-        top: 0.5rem;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: var(--accent-color);
-      }
-
-      .education-content {
-        background: var(--card-bg);
-        padding: 1.5rem;
-        border-radius: 10px;
-        border: 1px solid var(--accent-color);
-      }
-
-      .education-title {
-        color: var(--accent-color);
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .education-institution {
-        opacity: 0.8;
-        margin-bottom: 0.5rem;
-      }
-
-      .education-date {
-        color: var(--accent-color);
-        font-size: 0.9rem;
-      }
-
-      .footer {
-        background: var(--primary-color);
-        text-align: center;
-        padding: 2rem;
-        border-top: 2px solid var(--accent-color);
-      }
-
-      .mobile-menu-btn {
-        display: none;
-        background: none;
-        border: none;
-        color: var(--accent-color);
-        font-size: 1.8rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        z-index: 1001;
-        transition: color 0.3s ease;
-      }
-
-      @media (max-width: 768px) {
-        .mobile-menu-btn {
-          display: block;
-        }
-
-        .mobile-menu-btn:hover {
-          color: var(--hover-accent);
-        }
-
-        .nav {
-          position: relative;
-        }
-
-        .nav-links {
-          display: none !important;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: rgba(47, 79, 79, 1);
-          backdrop-filter: blur(10px);
-          flex-direction: column;
-          padding: 1.5rem 2rem;
-          border-top: 2px solid var(--accent-color);
-          gap: 0;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-          z-index: 1002;
-        }
-
-        .nav-links.show-mobile {
-          display: flex !important;
-          z-index: 9999;
-        }
-
-        .nav-links li {
-          margin: 0;
-          border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .nav-links li:last-child {
-          border-bottom: none;
-        }
-
-        .nav-links a {
-          display: block;
-          padding: 1rem 0;
-          text-align: center;
-          font-size: 1.1rem;
-          font-weight: 500;
-          transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-          background: rgba(212, 175, 55, 0.1);
-          color: var(--hover-accent);
-        }
-
-        .logo {
-          font-size: 1.2rem;
-        }
-
-        .hero h1 {
-          font-size: 2rem;
-        }
-
-        .hero h2 {
-          font-size: 1.2rem;
-        }
-
-        .contact-info {
-          flex-direction: column;
-          align-items: center;
-          gap: 1rem;
-        }
-
-        .section {
-          padding: 3rem 1rem;
-        }
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .animate-on-scroll {
-        animation: fadeInUp 0.6s ease-out;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="language-toggle">
-      <button class="lang-btn active" data-lang="pt" title="Português"><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/br.png" alt="" style="width:20px; vertical-align:middle;"></button>
-      <button class="lang-btn" data-lang="en" title="English"> <img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/us.png" alt="" style="width:20px; vertical-align:middle;"></button>
-    </div>
-
-    <header class="header">
-      <nav class="nav">
-        <div class="logo" data-en="Welcome to My Portfolio!">Sejam Bem Vindos ao Meu Portfólio!</div>
-        <button class="mobile-menu-btn">
-          <i class="fas fa-bars"></i>
-        </button>
-        <ul class="nav-links">
-          <li><a href="#home" data-en="Home">Início</a></li>
-          <li><a href="#about" data-en="About">Sobre</a></li>
-          <li><a href="#experience" data-en="Experience">Experiência</a></li>
-          <li><a href="#skills" data-en="Skills">Habilidades</a></li>
-          <li><a href="#projects" data-en="Projects">Projetos</a></li>
-          <li><a href="#education" data-en="Education">Educação</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <div style="height: 100px;"></div>
-
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <div class="profile-photo">
-          <img src="https://images.weserv.nl/?url=drive.google.com/uc%3Fexport%3Dview%26id%3D19IYH_dnANfIZGZ_rEvb-ziMQXalD4iOM&output=png&bg=ffffff" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-        </div>
-        <h1>Antônio Victor Alves Silva</h1>
-        <h2 data-en="Data Analyst | Data Scientist | Statistician">Analista de Dados | Cientista de Dados | Formado em Estatística</h2>
-        <p data-en="Transforming data into strategic insights, driving assertive decisions and accelerating results">Transformando dados em insights estratégicos, impulsionando decisões assertivas e acelerando resultados</p>
-
-        <div class="contact-info">
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Queimadas, PB</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <span>antinovictor@gmail.com</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <span>(83) 99185-3929</span>
-          </div>
-        </div>
-
-        <div class="social-links">
-          <a href="https://www.linkedin.com/in/ant%C3%B4nio-victor/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/antonio_victoralves/" target="_blank"><i class="fab fa-instagram"></i></a>
-        </div>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Antônio Victor Alves Silva - Portfólio</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="icon" href="https://cdn-icons-png.freepik.com/256/12237/12237097.png" sizes="32x32" />
+      <link rel="icon" href="https://cdn-icons-png.freepik.com/256/12237/12237097.png" sizes="192x192" />
+      <link rel="apple-touch-icon" href="https://cdn-icons-png.freepik.com/256/12237/12237097.png" />
+      <style>
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         :root {
+         --primary-color: #2F4F4F;
+         --accent-color: #D4AF37;
+         --text-color: #FFF8DC;
+         --card-bg: rgba(47, 79, 79, 0.9);
+         --hover-accent: #FFD700;
+         }
+         body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background: linear-gradient(135deg, var(--primary-color) 0%, #1a3333 100%);
+         color: var(--text-color);
+         line-height: 1.6;
+         overflow-x: hidden;
+         }
+         .language-toggle {
+         position: fixed;
+         top: 80px;
+         right: 10px;
+         transform: translateX(-50%);
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         z-index: 1001;
+         }
+         .lang-btn {
+         width: 50px;
+         height: 50px;
+         border: none;
+         border-radius: 100%;
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 1.2rem;
+         font-weight: bold;
+         transition: all 0.3s ease;
+         backdrop-filter: blur(10px);
+         }
+         .lang-btn.active {
+         background: var(--accent-color);
+         color: var(--primary-color);
+         transform: scale(1.1);
+         }
+         .lang-btn:not(.active) {
+         background: rgba(255, 255, 255, 0.2);
+         color: var(--text-color);
+         }
+         @media (max-width: 768px) {
+         .language-toggle {
+         right: 10px;
+         top: 120px;
+         transform: none;
+         }
+         .lang-btn {
+         width: 40px;
+         height: 40px;
+         font-size: 1rem;
+         }
+         }
+         .header {
+         position: fixed;
+         top: 0;
+         width: 100%;
+         background: rgba(47, 79, 79, 0.95);
+         backdrop-filter: blur(10px);
+         z-index: 1000;
+         padding: 1rem 0;
+         border-bottom: 2px solid var(--accent-color);
+         }
+         .nav {
+         max-width: 1200px;
+         margin: 0 auto;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 0 2rem;
+         }
+         .logo {
+         font-size: 1.5rem;
+         font-weight: bold;
+         color: var(--accent-color);
+         }
+         .nav-links {
+         display: flex;
+         list-style: none;
+         gap: 2rem;
+         }
+         .nav-links a {
+         color: var(--text-color);
+         text-decoration: none;
+         transition: color 0.3s ease;
+         font-weight: 500;
+         }
+         .nav-links a:hover {
+         color: var(--accent-color);
+         }
+         .hero {
+         min-height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+         padding: 2rem;
+         position: relative;
+         }
+         .hero-content {
+         max-width: 800px;
+         z-index: 2;
+         }
+         .profile-photo {
+         width: 200px;
+         height: 200px;
+         border-radius: 50%;
+         margin: 0 auto 2rem;
+         border: 4px solid var(--accent-color);
+         background: var(--card-bg);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 4rem;
+         color: var(--accent-color);
+         }
+         .hero h1 {
+         font-size: 3rem;
+         margin-bottom: 1rem;
+         color: var(--accent-color);
+         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+         }
+         .hero h2 {
+         font-size: 1.5rem;
+         margin-bottom: 2rem;
+         font-weight: 300;
+         }
+         .hero p {
+         font-size: 1.2rem;
+         margin-bottom: 2rem;
+         opacity: 0.9;
+         }
+         .contact-info {
+         display: flex;
+         justify-content: center;
+         gap: 2rem;
+         flex-wrap: wrap;
+         margin-bottom: 2rem;
+         }
+         .contact-item {
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         color: var(--text-color);
+         }
+         .contact-item i {
+         color: var(--accent-color);
+         }
+         .social-links {
+         display: flex;
+         justify-content: center;
+         gap: 1rem;
+         }
+         .social-links a {
+         color: var(--accent-color);
+         font-size: 1.5rem;
+         transition: transform 0.3s ease, color 0.3s ease;
+         }
+         .social-links a:hover {
+         transform: translateY(-3px);
+         color: var(--hover-accent);
+         }
+         .section {
+         padding: 4rem 2rem;
+         max-width: 1200px;
+         margin: 0 auto;
+         scroll-margin-top: 80px;
+         }
+         .section h2 {
+         font-size: 2.5rem;
+         text-align: center;
+         margin-bottom: 3rem;
+         color: var(--accent-color);
+         position: relative;
+         }
+         .section h2::after {
+         content: '';
+         position: absolute;
+         bottom: -10px;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 80px;
+         height: 3px;
+         background: var(--accent-color);
+         }
+         .experience-grid {
+         display: grid;
+         gap: 2rem;
+         }
+         .experience-card {
+         background: var(--card-bg);
+         border-radius: 15px;
+         padding: 2rem;
+         border: 1px solid var(--accent-color);
+         }
+         .experience-header {
+         display: flex;
+         align-items: center;
+         margin-bottom: 1rem;
+         gap: 1rem;
+         }
+         .experience-icon {
+         font-size: 2rem;
+         color: var(--accent-color);
+         }
+         .experience-title {
+         flex: 1;
+         }
+         .experience-title h3 {
+         color: var(--accent-color);
+         font-size: 1.3rem;
+         margin-bottom: 0.5rem;
+         }
+         .experience-company {
+         color: var(--text-color);
+         opacity: 0.8;
+         font-size: 0.9rem;
+         }
+         .experience-date {
+         color: var(--accent-color);
+         font-size: 0.9rem;
+         font-weight: bold;
+         }
+         .skills-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 2rem;
+         }
+         .skill-category {
+         background: var(--card-bg);
+         border-radius: 15px;
+         padding: 2rem;
+         border: 1px solid var(--accent-color);
+         }
+         .skill-category h3 {
+         color: var(--accent-color);
+         margin-bottom: 1.5rem;
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         }
+         .skill-item {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 1rem;
+         }
+         .skill-name {
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         }
+         .skill-level {
+         display: flex;
+         gap: 2px;
+         }
+         .skill-dot {
+         width: 12px;
+         height: 12px;
+         border-radius: 50%;
+         background: rgba(212, 175, 55, 0.3);
+         transition: background 0.3s ease;
+         }
+         .skill-dot.active {
+         background: var(--accent-color);
+         }
+         .projects-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+         gap: 2rem;
+         }
+         .project-card {
+         background: var(--card-bg);
+         border-radius: 15px;
+         padding: 2rem;
+         border: 1px solid var(--accent-color);
+         }
+         .project-image {
+         width: 100%;
+         height: 200px;
+         background: rgba(212, 175, 55, 0.1);
+         border-radius: 10px;
+         margin-bottom: 1.5rem;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: var(--accent-color);
+         font-size: 3rem;
+         border: 2px dashed var(--accent-color);
+         }
+         .project-title {
+         color: var(--accent-color);
+         font-size: 1.3rem;
+         margin-bottom: 1rem;
+         }
+         .project-description {
+         margin-bottom: 1.5rem;
+         opacity: 0.9;
+         }
+         .project-links {
+         display: flex;
+         gap: 1rem;
+         }
+         .project-link {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+         padding: 0.5rem 1rem;
+         background: var(--accent-color);
+         color: var(--primary-color);
+         text-decoration: none;
+         border-radius: 25px;
+         font-weight: bold;
+         transition: background 0.3s ease;
+         }
+         .project-link:hover {
+         background: var(--hover-accent);
+         }
+         .education-timeline {
+         position: relative;
+         padding-left: 2rem;
+         }
+         .education-timeline::before {
+         content: '';
+         position: absolute;
+         left: 0;
+         top: 0;
+         bottom: 0;
+         width: 2px;
+         background: var(--accent-color);
+         }
+         .education-item {
+         position: relative;
+         margin-bottom: 2rem;
+         padding-left: 2rem;
+         }
+         .education-item::before {
+         content: '';
+         position: absolute;
+         left: -8px;
+         top: 0.5rem;
+         width: 16px;
+         height: 16px;
+         border-radius: 50%;
+         background: var(--accent-color);
+         }
+         .education-content {
+         background: var(--card-bg);
+         padding: 1.5rem;
+         border-radius: 10px;
+         border: 1px solid var(--accent-color);
+         }
+         .education-title {
+         color: var(--accent-color);
+         font-size: 1.2rem;
+         margin-bottom: 0.5rem;
+         }
+         .education-institution {
+         opacity: 0.8;
+         margin-bottom: 0.5rem;
+         }
+         .education-date {
+         color: var(--accent-color);
+         font-size: 0.9rem;
+         }
+         .footer {
+         background: var(--primary-color);
+         text-align: center;
+         padding: 2rem;
+         border-top: 2px solid var(--accent-color);
+         }
+         .mobile-menu-btn {
+         display: none;
+         background: none;
+         border: none;
+         color: var(--accent-color);
+         font-size: 1.8rem;
+         cursor: pointer;
+         padding: 0.5rem;
+         z-index: 1001;
+         transition: color 0.3s ease;
+         }
+         @media (max-width: 768px) {
+         .mobile-menu-btn {
+         display: block;
+         }
+         .mobile-menu-btn:hover {
+         color: var(--hover-accent);
+         }
+         .nav {
+         position: relative;
+         }
+         .nav-links {
+         display: none !important;
+         position: absolute;
+         top: 100%;
+         left: 0;
+         right: 0;
+         background: rgba(47, 79, 79, 1);
+         backdrop-filter: blur(10px);
+         flex-direction: column;
+         padding: 1.5rem 2rem;
+         border-top: 2px solid var(--accent-color);
+         gap: 0;
+         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+         z-index: 1002;
+         }
+         .nav-links.show-mobile {
+         display: flex !important;
+         z-index: 9999;
+         }
+         .nav-links li {
+         margin: 0;
+         border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+         }
+         .nav-links li:last-child {
+         border-bottom: none;
+         }
+         .nav-links a {
+         display: block;
+         padding: 1rem 0;
+         text-align: center;
+         font-size: 1.1rem;
+         font-weight: 500;
+         transition: all 0.3s ease;
+         }
+         .nav-links a:hover {
+         background: rgba(212, 175, 55, 0.1);
+         color: var(--hover-accent);
+         }
+         .logo {
+         font-size: 1.2rem;
+         }
+         .hero h1 {
+         font-size: 2rem;
+         }
+         .hero h2 {
+         font-size: 1.2rem;
+         }
+         .contact-info {
+         flex-direction: column;
+         align-items: center;
+         gap: 1rem;
+         }
+         .section {
+         padding: 3rem 1rem;
+         }
+         }
+         html {
+         scroll-behavior: smooth;
+         }
+         @keyframes fadeInUp {
+         from {
+         opacity: 0;
+         transform: translateY(30px);
+         }
+         to {
+         opacity: 1;
+         transform: translateY(0);
+         }
+         }
+         .animate-on-scroll {
+         animation: fadeInUp 0.6s ease-out;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="language-toggle">
+         <button class="lang-btn active" data-lang="pt" title="Português"><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/br.png" alt="" style="width:20px; vertical-align:middle;"></button>
+         <button class="lang-btn" data-lang="en" title="English"> <img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/us.png" alt="" style="width:20px; vertical-align:middle;"></button>
       </div>
-    </section>
-
-    <section id="about" class="section">
-      <h2 data-en="About Me">Sobre Mim</h2>
-      <div style="background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid var(--accent-color); text-align: center; font-size: 1.1rem;">
-        <p data-en="I am a Bachelor of Statistics with comprehensive training in robust analysis, trend identification and evidence-based decisions, combined with clear communication and efficient organization. Always looking for challenges that enhance my development and add value to organizations.">Sou Bacharel em Estatística com formação abrangente em análises robustas, identificação de tendências e decisões baseadas em evidências, aliadas a uma comunicação clara e organização eficiente. Sempre em busca de desafios que potencializem meu desenvolvimento e agreguem valor às organizações.</p>
-      </div>
-    </section>
-
-    <section id="experience" class="section">
-      <h2 data-en="Professional Experience">Experiência Profissional</h2>
-      <div class="experience-grid">
-        <div class="experience-card">
-          <div class="experience-header">
-            <div class="experience-icon">
-              <i class="fas fa-chart-line"></i>
+      <header class="header">
+         <nav class="nav">
+            <div class="logo" data-en="Welcome to My Portfolio!">Sejam Bem Vindos ao Meu Portfólio!</div>
+            <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+               <li><a href="#home" data-en="Home">Início</a></li>
+               <li><a href="#about" data-en="About">Sobre</a></li>
+               <li><a href="#experience" data-en="Experience">Experiência</a></li>
+               <li><a href="#skills" data-en="Skills">Habilidades</a></li>
+               <li><a href="#projects" data-en="Projects">Projetos</a></li>
+               <li><a href="#education" data-en="Education">Educação</a></li>
+            </ul>
+         </nav>
+      </header>
+      <div style="height: 100px;"></div>
+      <section id="home" class="hero">
+         <div class="hero-content">
+            <div class="profile-photo">
+               <img src="https://media.licdn.com/dms/image/v2/D4E03AQH0N2-TItn1IQ/profile-displayphoto-scale_400_400/B4EZ0nyv.6HYAg-/0/1774489115090?e=1781136000&v=beta&t=q71ODf4ORzQuDlLQRp8Jkg9vafPbZpITBgFlsM5aiD8" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
             </div>
-            <div class="experience-title">
-              <h3 data-en="Statistician">Analista de Dados de Trânsito</h3>
-              <div class="experience-company" data-en="STTrans - Traffic and Transportation Superintendency of Queimadas">STTrans - Superintendência de Trânsito e Transportes de Queimadas</div>
+            <h1>Antônio Victor Alves Silva</h1>
+            <h2 data-en="Data Analyst | Data Scientist | Statistician">Analista de Dados | Cientista de Dados | Formado em Estatística</h2>
+            <p data-en="Transforming data into strategic insights, driving assertive decisions and accelerating results">Transformando dados em insights estratégicos, impulsionando decisões assertivas e acelerando resultados</p>
+            <div class="contact-info">
+               <div class="contact-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Queimadas, PB</span>
+               </div>
+               <div class="contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <span>antinovictor@gmail.com</span>
+               </div>
+               <div class="contact-item">
+                  <i class="fas fa-phone"></i>
+                  <span>(83) 99185-3929</span>
+               </div>
             </div>
-            <div class="experience-date" data-en="03/2025 - Current">03/2025 - Atual</div>
-          </div>
-<p data-en="Responsible for collecting, analyzing, and interpreting traffic data from SAMU, Hospital, PRF, PM, and STTRANS sectors, transforming information on fines, accidents, and other indicators into strategic insights. I develop optimized internal dashboards and reports to improve traffic management.">Responsável por coletar, analisar e interpretar dados de trânsito dos setores SAMU, Hospital, PRF, PM e STTRANS, transformando informações de multas, acidentes e demais indicadores em insights estratégicos. Desenvolvo dashboards e relatórios internos otimizados para aprimorar a gestão do tráfego.</p>
-        </div>
-
-        <div class="experience-card">
-          <div class="experience-header">
-            <div class="experience-icon">
-              <i class="fas fa-school"></i>
+            <div class="social-links">
+               <a href="https://www.linkedin.com/in/ant%C3%B4nio-victor/" target="_blank"><i class="fab fa-linkedin"></i></a>
+               <a href="https://www.instagram.com/antonio_victoralves/" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="experience-title">
-              <h3 data-en="School Secretary">Secretário Escolar</h3>
-              <div class="experience-company" data-en="José Miranda School (Queimadas-PB)">Escola José Miranda (Queimadas-PB)</div>
+         </div>
+      </section>
+      <section id="about" class="section">
+         <h2 data-en="About Me">Sobre Mim</h2>
+         <div style="background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid var(--accent-color); text-align: center; font-size: 1.1rem;">
+            <p data-en="I am a Bachelor of Statistics with comprehensive training in robust analysis, trend identification and evidence-based decisions, combined with clear communication and efficient organization. Always looking for challenges that enhance my development and add value to organizations.">Sou Bacharel em Estatística com formação abrangente em análises robustas, identificação de tendências e decisões baseadas em evidências, aliadas a uma comunicação clara e organização eficiente. Sempre em busca de desafios que potencializem meu desenvolvimento e agreguem valor às organizações.</p>
+         </div>
+      </section>
+      <section id="experience" class="section">
+         <h2 data-en="Professional Experience">Experiência Profissional</h2>
+         <div class="experience-grid">
+            <div class="experience-card">
+               <div class="experience-header">
+                  <div class="experience-icon">
+                     <i class="fas fa-chart-line"></i>
+                  </div>
+                  <div class="experience-title">
+                     <h3 data-en="Statistician">Analista de Dados de Trânsito</h3>
+                     <div class="experience-company" data-en="STTrans - Traffic and Transportation Superintendency of Queimadas">STTrans - Superintendência de Trânsito e Transportes de Queimadas</div>
+                  </div>
+                  <div class="experience-date" data-en="03/2025 - 02/2026">03/2025 - 02/2026</div>
+               </div>
+               <p data-en="Responsible for collecting, analyzing, and interpreting traffic data from SAMU, Hospital, PRF, PM, and STTRANS sectors, transforming information on fines, accidents, and other indicators into strategic insights. I develop optimized internal dashboards and reports to improve traffic management.">Responsável por coletar, analisar e interpretar dados de trânsito dos setores SAMU, Hospital, PRF, PM e STTRANS, transformando informações de multas, acidentes e demais indicadores em insights estratégicos. Desenvolvo dashboards e relatórios internos otimizados para aprimorar a gestão do tráfego.</p>
             </div>
-            <div class="experience-date">01/2022 - 09/2023</div>
-          </div>
-          <p data-en="I developed skills in efficient data management using Microsoft Excel. I improved my organizational capabilities and management of educational information.">Desenvolvi habilidades em gerenciamento eficiente de dados usando o Microsoft Excel. Aperfeiçoei minhas capacidades de organização e gestão de informações educacionais.</p>
-        </div>
-
-        <div class="experience-card">
-          <div class="experience-header">
-            <div class="experience-icon">
-              <i class="fas fa-user-graduate"></i>
+            <div class="experience-card">
+               <div class="experience-header">
+                  <div class="experience-icon">
+                     <i class="fas fa-school"></i>
+                  </div>
+                  <div class="experience-title">
+                     <h3 data-en="School Secretary">Secretário Escolar</h3>
+                     <div class="experience-company" data-en="José Miranda School (Queimadas-PB)">Escola José Miranda (Queimadas-PB)</div>
+                  </div>
+                  <div class="experience-date">01/2022 - 09/2023</div>
+               </div>
+               <p data-en="I developed skills in efficient data management using Microsoft Excel. I improved my organizational capabilities and management of educational information.">Desenvolvi habilidades em gerenciamento eficiente de dados usando o Microsoft Excel. Aperfeiçoei minhas capacidades de organização e gestão de informações educacionais.</p>
             </div>
-            <div class="experience-title">
-              <h3 data-en="Statistics Intern">Estagiário em Estatística</h3>
-              <div class="experience-company" data-en="SEDUC (Queimadas-PB)">SEDUC (Queimadas-PB)</div>
+            <div class="experience-card">
+               <div class="experience-header">
+                  <div class="experience-icon">
+                     <i class="fas fa-user-graduate"></i>
+                  </div>
+                  <div class="experience-title">
+                     <h3 data-en="Statistics Intern">Estagiário em Estatística</h3>
+                     <div class="experience-company" data-en="SEDUC (Queimadas-PB)">SEDUC (Queimadas-PB)</div>
+                  </div>
+                  <div class="experience-date">05/2021 - 12/2021</div>
+               </div>
+               <p data-en="I gained practical experience working with educational data and gained a comprehensive understanding of the job market in the statistics field. I improved my communication skills by interacting with diverse profiles of people.">Adquiri experiência prática no trabalho com dados educacionais e obtive uma compreensão abrangente do mercado de trabalho na área de estatística. Aperfeiçoei minhas habilidades de comunicação ao interagir com diversos perfis de pessoas.</p>
             </div>
-            <div class="experience-date">05/2021 - 12/2021</div>
-          </div>
-          <p data-en="I gained practical experience working with educational data and gained a comprehensive understanding of the job market in the statistics field. I improved my communication skills by interacting with diverse profiles of people.">Adquiri experiência prática no trabalho com dados educacionais e obtive uma compreensão abrangente do mercado de trabalho na área de estatística. Aperfeiçoei minhas habilidades de comunicação ao interagir com diversos perfis de pessoas.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section">
-      <h2 data-en="Technical Skills">Habilidades Técnicas</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3><i class="fas fa-code"></i> <span data-en="Programming Languages">Linguagens de Programação</span></h3>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-r-project"></i>
-              <span>R</span>
+         </div>
+      </section>
+      <section id="skills" class="section">
+         <h2 data-en="Technical Skills">Habilidades Técnicas</h2>
+         <div class="skills-grid">
+            <div class="skill-category">
+               <h3><i class="fas fa-code"></i> <span data-en="Programming Languages">Linguagens de Programação</span></h3>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-r-project"></i>
+                     <span>R</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-python"></i>
+                     <span>Python</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-database"></i>
+                     <span>SQL - Server</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-js-square"></i>
+                     <span>JavaScript</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-html5"></i>
+                     <span>HTML</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-css3-alt"></i>
+                     <span>CSS</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="skill-category">
+               <h3><i class="fas fa-chart-bar"></i> <span data-en="Data Analysis">Análise de Dados</span></h3>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-chart-pie"></i>
+                     <span>Power BI</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot "></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-file-excel"></i>
+                     <span>Excel</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
             </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-python"></i>
-              <span>Python</span>
+            <div class="skill-category">
+               <h3><i class="fas fa-tools"></i> <span data-en="Development Tools">Ferramentas de Desenvolvimento</span></h3>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-code"></i>
+                     <span>VS Code</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-server"></i>
+                     <span>XAMPP</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-github"></i>
+                     <span>GitHub</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-database"></i>
+                     <span>MySQL</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="skill-category">
+               <h3><i class="fas fa-file-alt"></i> <span data-en="Documentation">Documentação</span></h3>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-file-alt"></i>
+                     <span>LaTeX</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fab fa-markdown"></i>
+                     <span>R Markdown</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <i class="fas fa-book"></i>
+                     <span>Quarto</span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
             </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-database"></i>
-              <span>SQL - Server</span>
+            <div class="skill-category">
+               <h3><i class="fa-solid fa-language"></i> <span data-en="Languages">Idiomas</span></h3>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <span><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/br.png" alt="" style="width:20px; vertical-align:middle;"> <span data-en="Portuguese">Português</span></span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <span><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/us.png" alt="" style="width:20px; vertical-align:middle;"> <span data-en="English">Inglês</span></span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
+               <div class="skill-item">
+                  <div class="skill-name">
+                     <span><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/es.png" alt="" style="width:20px; vertical-align:middle;"> <span data-en="Spanish">Espanhol</span></span>
+                  </div>
+                  <div class="skill-level">
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot active"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                     <div class="skill-dot"></div>
+                  </div>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+         </div>
+      </section>
+      <section id="projects" class="section">
+         <h2 data-en="Featured Projects">Projetos em Destaque</h2>
+         <div class="projects-grid">
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://www.paho.org/sites/default/files/styles/max_1500x1500/public/2025-06/coronavirus.jpg?itok=At6UnYcp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="Scientific Article (Sigmae Journal)">Artigo Científico (​Revista Sigmae)</h3>
+               <p class="project-description" data-en="Statistical analysis of the impact of the COVID-19 pandemic in 2020 on IBOVESPA using PROPHET and AUTOARIMA Machine Learning models.">Análise estatística do impacto da pandemia de COVID-19 no ano de 2020 na IBOVESPA utilizando modelos de Machine Learning PROPHET e AUTOARIMA.</p>
+               <div class="project-links">
+                  <a href="https://publicacoes.unifal-mg.edu.br/revistas/index.php/sigmae/article/view/2158" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-js-square"></i>
-              <span>JavaScript</span>
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://s2-techtudo.glbimg.com/PNJER51BOnQnITDIcY5imE75mN8=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2019/0/B/l8KwmZRfW41RBYwagf6A/6.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="Survival Analysis (Academic Work)">Análise de Sobrevivência​ (Trabalho Acadêmico)​</h3>
+               <p class="project-description" data-en="Survival analysis in the Overwatch game.">Análise de sobrevivência no jogo ​Overwatch.</p>
+               <div class="project-links">
+                  <a href="https://antoniovictoralvessilva.github.io/Overwatch-analise-de-sobrevivencia/" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://www.staccatoescolademusica.com.br/img/blog-img/upload-blog/540752-5-2-2021-16-31-36-1m.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="GLM (Academic Work)">MLG (Trabalho Acadêmico)</h3>
+               <p class="project-description" data-en="Generalized linear models: analysis of a user's musical tastes."> Modelos lineares generalizados: análise ​dos gostos musicais de um usuário.</p>
+               <div class="project-links">
+                  <a href="https://antoniovictoralvessilva.github.io/Gosto-musical-MLG/" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-html5"></i>
-              <span>HTML</span>
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/5035707-icon-design-of-bank-building-vetor.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="Survival Analysis (Academic Work)">Análise de Sobrevivência (Trabalho Acadêmico)</h3>
+               <p class="project-description" data-en="Time analysis for loan returns."> Análise de tempo para devoluções d​e empréstimos​.</p>
+               <div class="project-links">
+                  <a href="https://antoniovictoralvessilva.github.io/Emprestimo-analise-de-sobrevivencia/" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://www.goldmarket.fr/wp-content/uploads/2025/04/7f093f9fthumbnail-1024x512.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="Econometrics - XAU/EUR (Academic Work)">Econometria - XAU/EUR (Trabalho Acadêmico)</h3>
+               <p class="project-description" data-en="XAU/EUR time series (Gold vs Euro)"> Séries temporais de XAU/EUR​ (Ouro vs Euro​)</p>
+               <div class="project-links">
+                  <a href="https://drive.google.com/file/d/1w8Sb_jxQ6_jROB453JHImn3V8vxVOhC4/view" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-css3-alt"></i>
-              <span>CSS</span>
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://cdn1.epicgames.com/offer/fn/FNBR_37-00_C6S4_EGS_Launcher_KeyArt_FNLogo_Carousel_PDP_2560x1440_logo_2560x1440-04348f5d3d52391f572e8c1050ddc737" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="Multivariate Analysis (Academic Work)">Multivariada (Trabalho Acadêmico)</h3>
+               <p class="project-description" data-en="Cluster analysis using K-means technique to select the best players for the C9 team."> Análise de cluster usando a técnica ​K-means para selecionar os melhores ​jogadores para a equipe da C9.</p>
+               <div class="project-links">
+                  <a href="https://drive.google.com/file/d/10URNl9pPP3zRBlabcDI0ER0c6AOBn2bq/view?usp=sharing" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="project-card">
+               <div class="project-image">
+                  <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/20901943-fofa-pardal-desenho-animado-estilo-vetor.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+               </div>
+               <h3 class="project-title" data-en="Econometrics (Academic Work)">Econometria​ (Trabalho ​Acadêmico)</h3>
+               <p class="project-description" data-en="Data analysis on sparrows using simple and multiple linear regression."> Análise de dados sobre pardais ​utilizando regressão linear simples e ​múltipla.</p>
+               <div class="project-links">
+                  <a href="https://drive.google.com/file/d/1McViQ6QB9ZzQfnHQ3D_2IdUpc0UTq2r6/view?usp=sharing" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span data-en="View">Visualizar</span>
+                  </a>
+               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3><i class="fas fa-chart-bar"></i> <span data-en="Data Analysis">Análise de Dados</span></h3>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-chart-pie"></i>
-              <span>Power BI</span>
+         </div>
+      </section>
+      <section id="education" class="section">
+         <h2 data-en="Academic Background">Formação Acadêmica</h2>
+         <div class="education-timeline">
+            <div class="education-item">
+               <div class="education-content">
+                  <h3 class="education-title" data-en="Master's in Biometrics and Applied Statistics">Mestrado, Biometria e Estatística Aplicada</h3>
+                  <div class="education-institution" data-en="Federal Rural University of Pernambuco (UFRPE) - Recife, PE">Universidade Federal Rural de Pernambuco (UFRPE) - Recife, PE</div>
+                  <div class="education-date" data-en="03/2026 - 02/2028">03/2026 - 02/2028</div>
+                  <p data-en="Area focused on experimental planning and data analysis, aimed at generating reliable conclusions from evidence. Developed skills: modeling, result interpretation, and analytical reasoning, applicable to any data-driven decision-making sector.">
+                     Área voltada ao planejamento de experimentos e análise de dados, com foco em gerar conclusões confiáveis a partir de evidências. As habilidades desenvolvidas: modelagem, interpretação de resultados e raciocínio analítico, que se aplicam a qualquer setor que tome decisões baseadas em dados.
+                  </p>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot "></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="education-item">
+               <div class="education-content">
+                  <h3 class="education-title" data-en="Bachelor's in Statistics">Bacharel em Estatística</h3>
+                  <div class="education-institution" data-en="State University of Paraíba (UEPB) - Campina Grande, PB">Universidade Estadual da Paraíba (UEPB) - Campina Grande, PB</div>
+                  <div class="education-date" data-en="Completed in 02/2023">Concluído em 02/2023</div>
+                  <p><strong data-en="Thesis:">TCC:</strong> <span data-en="'IMPACT OF THE COVID-19 PANDEMIC IN 2020 ON IBOVESPA: A STATISTICAL ANALYSIS WITH PROPHET AND AUTOARIMA MACHINE LEARNING MODELS' (Grade: 9.5)">"IMPACTO DA PANDEMIA DE COVID-19 NO ANO DE 2020 NA IBOVESPA: UMA ANÁLISE ESTATÍSTICA COM MODELOS DE MACHINE LEARNING PROPHET E AUTOARIMA" (Nota: 9,5)</span></p>
+               </div>
             </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-file-excel"></i>
-              <span>Excel</span>
+            <div class="education-item">
+               <div class="education-content">
+                  <h3 class="education-title" data-en="Industrial Automation Technician">Técnico em Automação Industrial</h3>
+                  <div class="education-institution" data-en="Prof. Stênio Lopes Professional Education Center (SENAI) - Campina Grande, PB">Centro de Educação Profissional Prof. Stênio Lopes (SENAI) - Campina Grande, PB</div>
+                  <div class="education-date" data-en="Completed in 06/2017">Concluído em 06/2017</div>
+                  <p data-en="Workload: 1300h">Carga horária: 1300h</p>
+               </div>
             </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
+            <div class="education-item">
+               <div class="education-content">
+                  <h3 class="education-title" data-en="Computer Technician">Técnico em Informática</h3>
+                  <div class="education-institution">PREMEM - Campina Grande, PB</div>
+                  <div class="education-date" data-en="Completed in 12/2015">Concluído em 12/2015</div>
+                  <p data-en="Workload: 3854h">Carga horária: 3854h</p>
+               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3><i class="fas fa-tools"></i> <span data-en="Development Tools">Ferramentas de Desenvolvimento</span></h3>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-code"></i>
-              <span>VS Code</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-server"></i>
-              <span>XAMPP</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-github"></i>
-              <span>GitHub</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-database"></i>
-              <span>MySQL</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3><i class="fas fa-file-alt"></i> <span data-en="Documentation">Documentação</span></h3>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-file-alt"></i>
-              <span>LaTeX</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fab fa-markdown"></i>
-              <span>R Markdown</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <i class="fas fa-book"></i>
-              <span>Quarto</span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3><i class="fa-solid fa-language"></i> <span data-en="Languages">Idiomas</span></h3>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <span><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/br.png" alt="" style="width:20px; vertical-align:middle;"> <span data-en="Portuguese">Português</span></span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <span><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/us.png" alt="" style="width:20px; vertical-align:middle;"> <span data-en="English">Inglês</span></span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="skill-name">
-              <span><img src="https://www.bandeirasnacionais.com/data/flags/emoji/facebook/256x256/es.png" alt="" style="width:20px; vertical-align:middle;"> <span data-en="Spanish">Espanhol</span></span>
-            </div>
-            <div class="skill-level">
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot active"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-              <div class="skill-dot"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section id="projects" class="section">
-      <h2 data-en="Featured Projects">Projetos em Destaque</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://www.paho.org/sites/default/files/styles/max_1500x1500/public/2025-06/coronavirus.jpg?itok=At6UnYcp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="Scientific Article (Sigmae Journal)">Artigo Científico (​Revista Sigmae)</h3>
-          <p class="project-description" data-en="Statistical analysis of the impact of the COVID-19 pandemic in 2020 on IBOVESPA using PROPHET and AUTOARIMA Machine Learning models.">Análise estatística do impacto da pandemia de COVID-19 no ano de 2020 na IBOVESPA utilizando modelos de Machine Learning PROPHET e AUTOARIMA.</p>
-          <div class="project-links">
-            <a href="https://publicacoes.unifal-mg.edu.br/revistas/index.php/sigmae/article/view/2158" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://s2-techtudo.glbimg.com/PNJER51BOnQnITDIcY5imE75mN8=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2019/0/B/l8KwmZRfW41RBYwagf6A/6.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="Survival Analysis (Academic Work)">Análise de Sobrevivência​ (Trabalho Acadêmico)​</h3>
-          <p class="project-description" data-en="Survival analysis in the Overwatch game.">Análise de sobrevivência no jogo ​Overwatch.</p>
-          <div class="project-links">
-            <a href="https://antoniovictoralvessilva.github.io/Overwatch-analise-de-sobrevivencia/" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://www.staccatoescolademusica.com.br/img/blog-img/upload-blog/540752-5-2-2021-16-31-36-1m.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="GLM (Academic Work)">MLG (Trabalho Acadêmico)</h3>
-          <p class="project-description" data-en="Generalized linear models: analysis of a user's musical tastes."> Modelos lineares generalizados: análise ​dos gostos musicais de um usuário.</p>
-          <div class="project-links">
-            <a href="https://antoniovictoralvessilva.github.io/Gosto-musical-MLG/" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/5035707-icon-design-of-bank-building-vetor.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="Survival Analysis (Academic Work)">Análise de Sobrevivência (Trabalho Acadêmico)</h3>
-          <p class="project-description" data-en="Time analysis for loan returns."> Análise de tempo para devoluções d​e empréstimos​.</p>
-          <div class="project-links">
-            <a href="https://antoniovictoralvessilva.github.io/Emprestimo-analise-de-sobrevivencia/" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://traders-trust.com/wp-content/uploads/metals_pair_xaueur.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="Econometrics - XAU/EUR (Academic Work)">Econometria - XAU/EUR (Trabalho Acadêmico)</h3>
-          <p class="project-description" data-en="XAU/EUR time series (Gold vs Euro)"> Séries temporais de XAU/EUR​ (Ouro vs Euro​)</p>
-          <div class="project-links">
-            <a href="https://drive.google.com/file/d/1w8Sb_jxQ6_jROB453JHImn3V8vxVOhC4/view" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://cdn1.epicgames.com/offer/fn/FNBR_37-00_C6S4_EGS_Launcher_KeyArt_FNLogo_Carousel_PDP_2560x1440_logo_2560x1440-04348f5d3d52391f572e8c1050ddc737" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="Multivariate Analysis (Academic Work)">Multivariada (Trabalho Acadêmico)</h3>
-          <p class="project-description" data-en="Cluster analysis using K-means technique to select the best players for the C9 team."> Análise de cluster usando a técnica ​K-means para selecionar os melhores ​jogadores para a equipe da C9.</p>
-          <div class="project-links">
-            <a href="https://drive.google.com/file/d/10URNl9pPP3zRBlabcDI0ER0c6AOBn2bq/view?usp=sharing" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/20901943-fofa-pardal-desenho-animado-estilo-vetor.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-          </div>
-          <h3 class="project-title" data-en="Econometrics (Academic Work)">Econometria​ (Trabalho ​Acadêmico)</h3>
-          <p class="project-description" data-en="Data analysis on sparrows using simple and multiple linear regression."> Análise de dados sobre pardais ​utilizando regressão linear simples e ​múltipla.</p>
-          <div class="project-links">
-            <a href="https://drive.google.com/file/d/1McViQ6QB9ZzQfnHQ3D_2IdUpc0UTq2r6/view?usp=sharing" class="project-link">
-              <i class="fas fa-external-link-alt"></i>
-              <span data-en="View">Visualizar</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="education" class="section">
-      <h2 data-en="Academic Background">Formação Acadêmica</h2>
-      <div class="education-timeline">
-        <div class="education-item">
-          <div class="education-content">
-            <h3 class="education-title" data-en="Bachelor's in Statistics">Bacharel em Estatística</h3>
-            <div class="education-institution" data-en="State University of Paraíba (UEPB) - Campina Grande, PB">Universidade Estadual da Paraíba (UEPB) - Campina Grande, PB</div>
-            <div class="education-date" data-en="Completed in 02/2023">Concluído em 02/2023</div>
-            <p><strong data-en="Thesis:">TCC:</strong> <span data-en="'IMPACT OF THE COVID-19 PANDEMIC IN 2020 ON IBOVESPA: A STATISTICAL ANALYSIS WITH PROPHET AND AUTOARIMA MACHINE LEARNING MODELS' (Grade: 9.5)">"IMPACTO DA PANDEMIA DE COVID-19 NO ANO DE 2020 NA IBOVESPA: UMA ANÁLISE ESTATÍSTICA COM MODELOS DE MACHINE LEARNING PROPHET E AUTOARIMA" (Nota: 9,5)</span></p>
-          </div>
-        </div>
-
-        <div class="education-item">
-          <div class="education-content">
-            <h3 class="education-title" data-en="Industrial Automation Technician">Técnico em Automação Industrial</h3>
-            <div class="education-institution" data-en="Prof. Stênio Lopes Professional Education Center (SENAI) - Campina Grande, PB">Centro de Educação Profissional Prof. Stênio Lopes (SENAI) - Campina Grande, PB</div>
-            <div class="education-date" data-en="Completed in 06/2017">Concluído em 06/2017</div>
-            <p data-en="Workload: 1300h">Carga horária: 1300h</p>
-          </div>
-        </div>
-
-        <div class="education-item">
-          <div class="education-content">
-            <h3 class="education-title" data-en="Computer Technician">Técnico em Informática</h3>
-            <div class="education-institution">PREMEM - Campina Grande, PB</div>
-            <div class="education-date" data-en="Completed in 12/2015">Concluído em 12/2015</div>
-            <p data-en="Workload: 3854h">Carga horária: 3854h</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <p data-en="© 2025 Antônio Victor Alves Silva. All rights reserved.">&copy; 2025 Antônio Victor Alves Silva. Todos os direitos reservados.</p>
-      <p data-en="Developed with <i class='fas fa-heart' style='color: var(--accent-color);'></i> using HTML, CSS and JavaScript">
-        Desenvolvido com <i class="fas fa-heart" style="color: var(--accent-color);"></i> usando HTML, CSS e JavaScript
-      </p>
-
-    </footer>
-
-    <script>
-      const languageButtons = document.querySelectorAll('.lang-btn');
-      const translatableElements = document.querySelectorAll('[data-en]');
-      let currentLanguage = 'pt';
-      translatableElements.forEach(el => {
-        el.setAttribute('data-pt', el.innerHTML.trim());
-      });
-      languageButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const targetLang = this.getAttribute('data-lang');
-          if (targetLang !== currentLanguage) {
-            languageButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentLanguage = targetLang;
-            document.documentElement.setAttribute('lang', targetLang === 'pt' ? 'pt-BR' : 'en-US');
-            translatableElements.forEach(element => {
-              const translation = element.getAttribute(`data-${targetLang}`);
-              if (translation) {
-                element.innerHTML = translation;
-              }
-            });
-          }
-        });
-      });
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        });
-      });
-      window.addEventListener('scroll', () => {
-        const header = document.querySelector('.header');
-        if (window.scrollY > 100) {
-          header.style.background = 'rgba(47, 79, 79, 0.98)';
-        } else {
-          header.style.background = 'rgba(47, 79, 79, 0.95)';
-        }
-      });
-      document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        if (!mobileMenuBtn || !navLinks) {
-          return;
-        }
-        mobileMenuBtn.addEventListener('click', function() {
-          navLinks.classList.toggle('show-mobile');
-          const icon = this.querySelector('i');
-          icon.className = navLinks.classList.contains('show-mobile') ? 'fas fa-times' : 'fas fa-bars';
-        });
-        navLinks.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            navLinks.classList.remove('show-mobile');
-            mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
-          });
-        });
-      });
-      document.querySelectorAll('.experience-card, .project-card, .skill-category').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.borderColor = '#FFD700';
-        });
-        card.addEventListener('mouseleave', function() {
-          this.style.borderColor = '#D4AF37';
-        });
-      });
-      document.querySelectorAll('.social-links a').forEach(link => {
-        link.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-5px) scale(1.1)';
-        });
-        link.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0) scale(1)';
-        });
-      });
-    </script>
-
-  </body>
-
+         </div>
+      </section>
+      <footer class="footer">
+         <p>
+            &copy; <span id="year"></span> Antônio Victor Alves Silva. Todos os direitos reservados.
+            <span data-en="© <span id='year-en'></span> Antônio Victor Alves Silva. All rights reserved." hidden></span>
+         </p>
+         <script>
+            const ano = new Date().getFullYear();
+            document.getElementById('year').textContent = ano;
+            if(document.getElementById('year-en')) {
+              document.getElementById('year-en').textContent = ano;
+            }
+         </script>
+      </footer>
+      <script>
+         const languageButtons = document.querySelectorAll('.lang-btn');
+         const translatableElements = document.querySelectorAll('[data-en]');
+         let currentLanguage = 'pt';
+         translatableElements.forEach(el => {
+           el.setAttribute('data-pt', el.innerHTML.trim());
+         });
+         languageButtons.forEach(btn => {
+           btn.addEventListener('click', function() {
+             const targetLang = this.getAttribute('data-lang');
+             if (targetLang !== currentLanguage) {
+               languageButtons.forEach(b => b.classList.remove('active'));
+               this.classList.add('active');
+               currentLanguage = targetLang;
+               document.documentElement.setAttribute('lang', targetLang === 'pt' ? 'pt-BR' : 'en-US');
+               translatableElements.forEach(element => {
+                 const translation = element.getAttribute(`data-${targetLang}`);
+                 if (translation) {
+                   element.innerHTML = translation;
+                 }
+               });
+             }
+           });
+         });
+         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+           anchor.addEventListener('click', function(e) {
+             e.preventDefault();
+             const target = document.querySelector(this.getAttribute('href'));
+             if (target) {
+               target.scrollIntoView({
+                 behavior: 'smooth',
+                 block: 'start'
+               });
+             }
+           });
+         });
+         window.addEventListener('scroll', () => {
+           const header = document.querySelector('.header');
+           if (window.scrollY > 100) {
+             header.style.background = 'rgba(47, 79, 79, 0.98)';
+           } else {
+             header.style.background = 'rgba(47, 79, 79, 0.95)';
+           }
+         });
+         document.addEventListener('DOMContentLoaded', function() {
+           const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+           const navLinks = document.querySelector('.nav-links');
+           if (!mobileMenuBtn || !navLinks) {
+             return;
+           }
+           mobileMenuBtn.addEventListener('click', function() {
+             navLinks.classList.toggle('show-mobile');
+             const icon = this.querySelector('i');
+             icon.className = navLinks.classList.contains('show-mobile') ? 'fas fa-times' : 'fas fa-bars';
+           });
+           navLinks.querySelectorAll('a').forEach(link => {
+             link.addEventListener('click', function() {
+               navLinks.classList.remove('show-mobile');
+               mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+             });
+           });
+         });
+         document.querySelectorAll('.experience-card, .project-card, .skill-category').forEach(card => {
+           card.addEventListener('mouseenter', function() {
+             this.style.borderColor = '#FFD700';
+           });
+           card.addEventListener('mouseleave', function() {
+             this.style.borderColor = '#D4AF37';
+           });
+         });
+         document.querySelectorAll('.social-links a').forEach(link => {
+           link.addEventListener('mouseenter', function() {
+             this.style.transform = 'translateY(-5px) scale(1.1)';
+           });
+           link.addEventListener('mouseleave', function() {
+             this.style.transform = 'translateY(0) scale(1)';
+           });
+         });
+      </script>
+   </body>
 </html>
